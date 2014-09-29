@@ -1,0 +1,11 @@
+<h1>Pick a Poll:</h1>
+<a href="/poll/new/">Create a New Poll</a>
+<% if(polls.length){ %>
+	<ul>
+	<% _.each(polls, function(poll){ %>
+		<li data-id="<%= poll.id %>"><%= poll.title %> (<%= poll.createdAt %>)</li>
+	<% }); %>
+	</ul>
+<% }else{ %>
+<p>No polls... yet.</p>
+<% } %>
