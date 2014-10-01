@@ -12,6 +12,7 @@ module.exports = {
 			if(err){
 				return err;
 			}
+            Poll.subscribe(req, polls, ['message','create']);
 			//Pass the Polls to the List view and load it
 			res.view({
 				polls: polls
@@ -43,10 +44,26 @@ module.exports = {
 					});
 				}
 			}
+            
+            Poll.publishCreate({id:poll.id,title:poll.title});
 
 			//Redirect to the list of polls when done
 			res.redirect('/poll/list/');
 		});
-	}
+	},
+    show: function(req, res){
+        Poll.findOne(req.param('id'), function foundPoll(err, poll){
+            if(err){
+                return err;
+            }
+            if(!poll){
+                return next();
+            }
+            //Pass the Poll to the Show view and load it
+			res.view({
+				poll: poll
+			});
+        });
+    }
 };
 

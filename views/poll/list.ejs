@@ -3,7 +3,7 @@
 <% if(polls.length){ %>
 	<ul>
 	<% _.each(polls, function(poll){ %>
-		<li data-id="<%= poll.id %>"><%= poll.title %> (<%= poll.createdAt %>)</li>
+		<li data-id="<%= poll.id %>"><a href="/poll/show/<%=poll.id%>"><%= poll.title %></a> (<%= poll.createdAt %>)</li>
 	<% }); %>
 	</ul>
 <% }else{ %>
