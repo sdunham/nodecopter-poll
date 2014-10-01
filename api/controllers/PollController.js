@@ -52,7 +52,7 @@ module.exports = {
 		});
 	},
     show: function(req, res){
-        Poll.findOne(req.param('id'), function foundPoll(err, poll){
+        Poll.findOne(req.param('id')).populate('options').exec(function foundPoll(err, poll){
             if(err){
                 return err;
             }

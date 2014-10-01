@@ -3,3 +3,33 @@
 <% if(poll.description){ %>
 <p><%= poll.description %></p>
 <% } %>
+
+<canvas id="poll_chart" width="400" height="400"></canvas>
+
+<div class="poll_options">
+<% var arrOptionLabels = []; %>
+<% var arrOptionVotes = []; %>
+<% _.each(poll.options, function(polloption){ %>
+    <% if(polloption.label){ %>
+    <% arrOptionLabels.push(polloption.label);%>
+    <% arrOptionVotes.push(polloption.votes);%>
+    <a href="#"><%=polloption.label%></a><br />
+    <% } %>
+<% }); %>
+</div>
+
+<script>
+    var pollData = {
+    labels: <%-JSON.stringify(arrOptionLabels)%>,
+    datasets: [
+        {
+            label: "<%= poll.title %> votes",
+            fillColor: "rgba(220,220,220,0.5)",
+            strokeColor: "rgba(220,220,220,0.8)",
+            highlightFill: "rgba(220,220,220,0.75)",
+            highlightStroke: "rgba(220,220,220,1)",
+            data: <%-JSON.stringify(arrOptionVotes)%>
+        }
+    ]
+};
+</script>
