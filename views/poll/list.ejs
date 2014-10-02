@@ -1,7 +1,8 @@
 <h1>Pick a Poll:</h1>
 <a href="/poll/new/">Create a New Poll</a>
+<div id="poll_list_contain">
 <% if(polls.length){ %>
-	<ul>
+	<ul id="poll_list">
 	<% _.each(polls, function(poll){ %>
 		<li data-id="<%= poll.id %>"><a href="/poll/show/<%=poll.id%>"><%= poll.title %></a> (<%= poll.createdAt %>)</li>
 	<% }); %>
@@ -9,3 +10,4 @@
 <% }else{ %>
 <p>No polls... yet.</p>
 <% } %>
+</div>
