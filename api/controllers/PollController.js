@@ -59,7 +59,7 @@ module.exports = {
             if(!poll){
                 return 'No poll found...';
             }
-            Poll.subscribe(req, poll, ['options:update']);
+            Poll.subscribe(req, poll, ['update:options']);
             //Pass the Poll to the Show view and load it
 			res.view({
 				poll: poll

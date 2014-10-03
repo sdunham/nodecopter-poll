@@ -23,6 +23,10 @@ io.socket.on('connect', function socketConnected() {
     io.socket.on('polloption', function messageReceived(message) {
         console.log('Polloption Message:');
         console.log(message);
+
+        //Update the chart when an update socket notification is received
+        pollChart.datasets[0].bars[message.data.datapos].value = message.data.votes;
+        pollChart.update();
     })
 
     io.socket.get("/poll", function(resData, jwres) {

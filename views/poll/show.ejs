@@ -1,3 +1,4 @@
+<!-- TODO: Unsubscribe from update:options context when user leaves poll -->
 <a href="/poll/list">< Back</a>
 <h1><%= poll.title %></h1>
 <% if(poll.description){ %>
@@ -9,11 +10,13 @@
 <div class="poll_options">
 <% var arrOptionLabels = []; %>
 <% var arrOptionVotes = []; %>
+<% var intDataPos = 0; %>
 <% _.each(poll.options, function(polloption){ %>
     <% if(polloption.label){ %>
     <% arrOptionLabels.push(polloption.label);%>
     <% arrOptionVotes.push(polloption.votes);%>
-    <a class="poll_option_vote" data-polloptionid="<%=polloption.id%>" href="#"><%=polloption.label%></a><br />
+    <a class="poll_option_vote" data-polloptionid="<%=polloption.id%>" data-datapos="<%=intDataPos%>" href="#"><%=polloption.label%></a><br />
+    <% intDataPos++; %>
     <% } %>
 <% }); %>
 </div>
