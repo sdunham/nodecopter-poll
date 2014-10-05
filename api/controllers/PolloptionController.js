@@ -17,7 +17,7 @@ module.exports = {
                     if(err){
                         return err;
                     }
-                    Polloption.publishUpdate(s.id, {votes:s.votes, datapos: req.param('data_pos')});
+                    Polloption.publishUpdate(s.id, {votes:s.votes, datapos: req.param('data_pos'), pollid: s.parentPoll.id});
                 });
             }
         });

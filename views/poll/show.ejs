@@ -1,5 +1,4 @@
-<!-- TODO: Unsubscribe from update:options context when user leaves poll -->
-<a href="/poll/list">< Back</a>
+<a href="/poll/list" id="leave_poll_details">< Back</a>
 <h1><%= poll.title %></h1>
 <% if(poll.description){ %>
 <p><%= poll.description %></p>
@@ -23,6 +22,7 @@
 
 <script>
     var pollData = {
+    intPollId: <%= poll.id %>,
     labels: <%-JSON.stringify(arrOptionLabels)%>,
     datasets: [
         {

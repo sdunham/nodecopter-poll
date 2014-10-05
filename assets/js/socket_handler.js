@@ -1,10 +1,6 @@
 // Attach a listener which fires when a connection is established:
 io.socket.on('connect', function socketConnected() {
     console.log('connected');
-    /*io.socket.on("poll", function(event){
-        console.log('Test 1');
-        console.log(event);
-    });*/
     
     io.socket.on('poll', function messageReceived(message) {
         console.log('Poll Message:');
@@ -19,23 +15,27 @@ io.socket.on('connect', function socketConnected() {
             $('#poll_list_contain').html('<ul>'+list_item+'</ul>');
         }
     });
-    
-    io.socket.on('polloption', function messageReceived(message) {
-        console.log('Polloption Message:');
-        console.log(message);
-
-        //Update the chart when an update socket notification is received
-        pollChart.datasets[0].bars[message.data.datapos].value = message.data.votes;
-        pollChart.update();
-    })
 
     io.socket.get("/poll", function(resData, jwres) {
         console.log('/poll');
         console.log(resData);
     });
     
-    io.socket.get("/polloption", function(resData, jwres) {
-        console.log('/polloption');
-        console.log(resData);
-    });
+    if('undefined' !== typeof pollData){
+        io.socket.on('polloption', function messageReceived(message) {
+            console.log('Polloption Message:');
+            console.log(message);
+
+            if(pollData.intPollId == message.data.pollid){
+                //Update the chart when an update socket notification is received
+                pollChart.datasets[0].bars[message.data.datapos].value = message.data.votes;
+                pollChart.update();
+            }
+        });
+
+        io.socket.get("/polloption", function(resData, jwres) {
+            console.log('/polloption');
+            console.log(resData);
+        });
+    }
 });

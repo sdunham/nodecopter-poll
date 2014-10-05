@@ -12,7 +12,6 @@ module.exports = {
 			if(err){
 				return err;
 			}
-            Poll.unsubscribe(req, polls, ['update:options']);
             Poll.subscribe(req, polls, ['create']);
 			//Pass the Polls to the List view and load it
 			res.view({

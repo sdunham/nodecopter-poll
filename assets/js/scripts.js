@@ -3,10 +3,6 @@ $(document).ready(function(){
         Chart.defaults.global.responsive = true;
         var ctx = document.getElementById("poll_chart").getContext("2d");
         pollChart = new Chart(ctx).Bar(pollData);
-        
-        //Example Update Code
-        //pollChart.datasets[0].bars[2].value = 50;
-        //pollChart.update();
     }
     
     $('a.poll_option_vote').click(function(e){
@@ -23,5 +19,9 @@ $(document).ready(function(){
         //Update the local chart
         pollChart.datasets[0].bars[option_pos].value = pollChart.datasets[0].bars[option_pos].value + 1;
         pollChart.update();
+    });
+
+    $('a#leave_poll_details').click(function(e){
+        //io.socket.get('/poll/leave');
     });
 });
