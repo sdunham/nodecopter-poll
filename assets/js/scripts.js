@@ -1,8 +1,9 @@
 $(document).ready(function(){
-    if('undefined' !== typeof pollData){
+    if('undefined' !== typeof pollDataPie){
         Chart.defaults.global.responsive = true;
-        var ctx = document.getElementById("poll_chart").getContext("2d");
-        pollChart = new Chart(ctx).Bar(pollData);
+        var ctx = document.getElementById("poll_chart_pie").getContext("2d");
+        pollChart = new Chart(ctx).Pie(pollDataPie);
+        pollChart.intPollId = pollId;
     }
     
     $('a.poll_option_vote').click(function(e){
@@ -17,7 +18,7 @@ $(document).ready(function(){
         });
 
         //Update the local chart
-        pollChart.datasets[0].bars[option_pos].value = pollChart.datasets[0].bars[option_pos].value + 1;
+        pollChart.segments[option_pos].value = pollChart.segments[option_pos].value + 1;
         pollChart.update();
     });
 

@@ -4,35 +4,43 @@
 <p><%= poll.description %></p>
 <% } %>
 
-<canvas id="poll_chart" width="400" height="400"></canvas>
+<section class="well">
+    <h3>Voting Options</h3>
+    <div class="poll_options">
+        <% var arrDatasets = []; %>
+        <%
+        var arrColorData = [
+            {strBootstrapClassExt: 'primary', strColor: '#357EBD', strHighlight:'#428BCA'},
+            {strBootstrapClassExt: 'success', strColor: '#4CAE4C', strHighlight:'#5CB85C'},
+            {strBootstrapClassExt: 'info', strColor: '#46B8DA', strHighlight:'#5BC0DE'},
+            {strBootstrapClassExt: 'warning', strColor: '#EEA236', strHighlight:'#F0AD4E'},
+            {strBootstrapClassExt: 'danger', strColor: '#D43F3A', strHighlight:'#D9534F'},
+            {strBootstrapClassExt: 'default', strColor: '#CCCCCC', strHighlight:'#DDDDDD'}
+        ];
+        %>
+        <% var intDataPos = 0; %>
+        <% _.each(poll.options, function(polloption){ %>
+            <% if(polloption.label){ %>
+            <% var objColorData = arrColorData[intDataPos]; %>
+            <a class="poll_option_vote btn btn-<%=objColorData.strBootstrapClassExt%>" data-polloptionid="<%=polloption.id%>" data-datapos="<%=intDataPos%>" href="#"><span class="glyphicon glyphicon-check"></span> <%=polloption.label%></a>
+            <%
+            var objDataset = {
+                label: polloption.label,
+                color: objColorData.strColor,
+                highlight: objColorData.strHighlight,
+                value: polloption.votes
+            };
+            arrDatasets.push(objDataset);
+            %>
+            <% intDataPos++; %>
+            <% } %>
+        <% }); %>
+    </div>
+</section>
 
-<div class="poll_options">
-<% var arrOptionLabels = []; %>
-<% var arrOptionVotes = []; %>
-<% var intDataPos = 0; %>
-<% _.each(poll.options, function(polloption){ %>
-    <% if(polloption.label){ %>
-    <% arrOptionLabels.push(polloption.label);%>
-    <% arrOptionVotes.push(polloption.votes);%>
-    <a class="poll_option_vote col-xs-2 btn btn-primary" data-polloptionid="<%=polloption.id%>" data-datapos="<%=intDataPos%>" href="#"><span class="glyphicon glyphicon-check"></span> <%=polloption.label%></a>
-    <% intDataPos++; %>
-    <% } %>
-<% }); %>
-</div>
+<canvas id="poll_chart_pie" width="400" height="400"></canvas>
 
 <script>
-    var pollData = {
-    intPollId: <%= poll.id %>,
-    labels: <%-JSON.stringify(arrOptionLabels)%>,
-    datasets: [
-        {
-            label: "<%= poll.title %> votes",
-            fillColor: "rgba(220,220,220,0.5)",
-            strokeColor: "rgba(220,220,220,0.8)",
-            highlightFill: "rgba(220,220,220,0.75)",
-            highlightStroke: "rgba(220,220,220,1)",
-            data: <%-JSON.stringify(arrOptionVotes)%>
-        }
-    ]
-};
+    var pollDataPie = <%-JSON.stringify(arrDatasets)%>;
+    var pollId = <%= poll.id %>;
 </script>

@@ -21,14 +21,13 @@ io.socket.on('connect', function socketConnected() {
         console.log(resData);
     });
     
-    if('undefined' !== typeof pollData){
+    if('undefined' !== typeof pollDataPie){//pollData
         io.socket.on('polloption', function messageReceived(message) {
             console.log('Polloption Message:');
             console.log(message);
 
-            if(pollData.intPollId == message.data.pollid){
-                //Update the chart when an update socket notification is received
-                pollChart.datasets[0].bars[message.data.datapos].value = message.data.votes;
+            if(pollChart.intPollId == message.data.pollid){
+                pollChart.segments[message.data.datapos].value = pollChart.segments[message.data.datapos].value + 1;
                 pollChart.update();
             }
         });
