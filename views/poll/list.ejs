@@ -1,10 +1,10 @@
+<a href="/poll/new/" class="btn btn-primary" style="float:right;"><span class="glyphicon glyphicon-plus"></span> Create a New Poll</a>
 <h1>Pick a Poll:</h1>
-<a href="/poll/new/">Create a New Poll</a>
 <div id="poll_list_contain">
 <% if(polls.length){ %>
-	<ul id="poll_list">
+	<ul id="poll_list" class="list-group">
 	<% _.each(polls, function(poll){ %>
-		<li data-id="<%= poll.id %>"><a href="/poll/show/<%=poll.id%>"><%= poll.title %></a> (<%= poll.createdAt %>)</li>
+		<li data-id="<%= poll.id %>" class="list-group-item"><a href="/poll/show/<%=poll.id%>"><%= poll.title %></a> (<%= poll.createdAt %>)</li>
 	<% }); %>
 	</ul>
 <% }else{ %>

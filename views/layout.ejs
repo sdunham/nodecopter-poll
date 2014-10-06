@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>New Sails App</title>
+    <title>Node Poll</title>
 
     <!-- Viewport mobile tag for sensible mobile support -->
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-    
+    <style>
+      form input[type=text]{ width: 100%; }
+    </style>
     <!--  
         Stylesheets and Preprocessors
         ==============================
@@ -29,12 +31,45 @@
     -->
 
     <!--STYLES-->
+    <link rel="stylesheet" href="/styles/bootstrap.min.css">
     <link rel="stylesheet" href="/styles/importer.css">
     <!--STYLES END-->
   </head>
 
   <body>
+  <nav class="navbar navbar-default" role="navigation">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/">Node Poll</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li><a href="/poll/list">Poll List</a></li>
+        <li><a href="/poll/new">Add New Poll</a></li>
+        <li><a href="/about">About the Project</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="https://github.com/sdunham/node-poll" target="_blank">Github Repo</a></li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+    <section id="view_content" class="container-fluid">
     <%- body %>
+    </section>
+    <hr />
+    <p class="text-center">
+      Node Poll - A simple example app using <a href="http://nodejs.org/" target="_blank">Node.js</a> and <a href="http://sailsjs.org/" target="_blank">Sails
+    </p>
 
 
 
@@ -91,6 +126,7 @@
     <script src="/js/dependencies/sails.io.js"></script>
     <script src="/js/dependencies/Chart.min.js"></script>
     <script src="/js/dependencies/jquery-1.11.1.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
     <script src="/js/scripts.js"></script>
     <script src="/js/socket_handler.js"></script>
     <!--SCRIPTS END-->

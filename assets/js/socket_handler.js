@@ -8,11 +8,11 @@ io.socket.on('connect', function socketConnected() {
         var objPollList = $('#poll_list');
         var now = new Date();
         if(objPollList.length){
-            objPollList.prepend('<li data-id="'+message.data.id+'"><a href="/poll/show/'+message.data.id+'">'+message.data.title+'</a> ('+now+')</li>');
+            objPollList.prepend('<li data-id="'+message.data.id+'" class="list-group-item"><a href="/poll/show/'+message.data.id+'">'+message.data.title+'</a> ('+now+')</li>');
         }
         else{
             var list_item = '<li data-id="'+message.data.id+'"><a href="/poll/show/'+message.data.id+'">'+message.data.title+'</a> ('+now+')</li>';
-            $('#poll_list_contain').html('<ul>'+list_item+'</ul>');
+            $('#poll_list_contain').html('<ul id="poll_list" class="list-group">'+list_item+'</ul>');
         }
     });
 

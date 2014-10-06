@@ -1,28 +1,53 @@
+<h1>Add New Poll</h1>
 <form action="/poll/create" method="post">
-	<label for="poll_title">Title</label>
-	<input type="text" name="title" id="poll_title" required />
-	<br />
-	<label for="poll_descr">Description</label>
-	<textarea id="poll_descr" name="description"></textarea>
-	<br />
-	<label for="poll_option_1">Option 1 Label</label>
-	<input type="text" id="poll_option_1" name="poll_options[]" />
-	<br />
-	<label for="poll_option_1">Option 2 Label</label>
-	<input type="text" id="poll_option_2" name="poll_options[]" />
-	<br />
-	<label for="poll_option_1">Option 3 Label</label>
-	<input type="text" id="poll_option_3" name="poll_options[]" />
-	<br />
-	<label for="poll_option_1">Option 4 Label</label>
-	<input type="text" id="poll_option_4" name="poll_options[]" />
-	<br />
-	<label for="poll_option_1">Option 5 Label</label>
-	<input type="text" id="poll_option_5" name="poll_options[]" />
-	<br />
-	<label for="poll_option_1">Option 6 Label</label>
-	<input type="text" id="poll_option_6" name="poll_options[]" />
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h3 class="panel-title">About the Poll</h3>
+		</div>
+		<div class="panel-body">
+			<div class="col-md-6">
+				<label for="poll_title">Title <span style="color:red;">*</span></label>
+				<input type="text" name="title" id="poll_title" required />
+			</div>
+			<div class="col-md-6">
+				<label for="poll_descr">Description</label>
+				<input type="text" id="poll_descr" name="description" />
+			</div>
+		</div>
+	</div>
+
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h3 class="panel-title">Poll Options</h3>
+		</div>
+		<div class="panel-body">
+			<div class="col-md-6">
+				<label for="poll_option_1">Option 1 Label <span style="color:red;">*</span></label>
+				<input type="text" id="poll_option_1" name="poll_options[]" required />
+			</div>
+			<div class="col-md-6">
+				<label for="poll_option_1">Option 2 Label <span style="color:red;">*</span></label>
+				<input type="text" id="poll_option_2" name="poll_options[]" required />
+			</div>
+			<div class="col-md-6">
+				<label for="poll_option_1">Option 3 Label</label>
+				<input type="text" id="poll_option_3" name="poll_options[]" />
+			</div>
+			<div class="col-md-6">
+				<label for="poll_option_1">Option 4 Label</label>
+				<input type="text" id="poll_option_4" name="poll_options[]" />
+			</div>
+			<div class="col-md-6">
+				<label for="poll_option_1">Option 5 Label</label>
+				<input type="text" id="poll_option_5" name="poll_options[]" />
+			</div>
+			<div class="col-md-6">
+				<label for="poll_option_1">Option 6 Label</label>
+				<input type="text" id="poll_option_6" name="poll_options[]" />
+			</div>
+		</div>
+	</div>
 	<br />
 	<input type="hidden" name="_csrf" value="<%= _csrf %>" />
-	<input type="submit" value="Submit" />
+	<input type="submit" value="Submit" class="btn btn-primary" />
 </form>

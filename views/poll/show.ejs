@@ -1,4 +1,4 @@
-<a href="/poll/list" id="leave_poll_details">< Back</a>
+<a href="/poll/list" id="leave_poll_details" class="btn btn-primary"><span class="glyphicon glyphicon-chevron-left"></span> Back</a>
 <h1><%= poll.title %></h1>
 <% if(poll.description){ %>
 <p><%= poll.description %></p>
@@ -14,7 +14,7 @@
     <% if(polloption.label){ %>
     <% arrOptionLabels.push(polloption.label);%>
     <% arrOptionVotes.push(polloption.votes);%>
-    <a class="poll_option_vote" data-polloptionid="<%=polloption.id%>" data-datapos="<%=intDataPos%>" href="#"><%=polloption.label%></a><br />
+    <a class="poll_option_vote col-xs-2 btn btn-primary" data-polloptionid="<%=polloption.id%>" data-datapos="<%=intDataPos%>" href="#"><span class="glyphicon glyphicon-check"></span> <%=polloption.label%></a>
     <% intDataPos++; %>
     <% } %>
 <% }); %>
