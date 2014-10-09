@@ -3,7 +3,15 @@ $(document).ready(function(){
         Chart.defaults.global.responsive = true;
         var ctx = document.getElementById("poll_chart_pie").getContext("2d");
         pollChart = new Chart(ctx).Pie(pollDataPie);
+        var blnRegen = true;
+        $.each(pollDataPie, function(index,data){
+            if(data.value > 0){
+                blnRegen = false;
+                return false;
+            }
+        });
         pollChart.intPollId = pollId;
+        pollChart.blnRegen = blnRegen;
     }
     
     $('a.poll_option_vote').click(function(e){
@@ -18,8 +26,19 @@ $(document).ready(function(){
         });
 
         //Update the local chart
-        pollChart.segments[option_pos].value = pollChart.segments[option_pos].value + 1;
-        pollChart.update();
+        if(pollChart.blnRegen){
+            pollChart.destroy();
+            var ctx = document.getElementById("poll_chart_pie").getContext("2d");
+            pollChart = new Chart(ctx).Pie(pollDataPie);
+            pollChart.segments[option_pos].value = pollChart.segments[option_pos].value + 1;
+            pollChart.update();
+            pollChart.blnRegen = false;
+        }
+        else{
+            pollChart.segments[option_pos].value = pollChart.segments[option_pos].value + 1;
+            pollChart.update();
+        }
+        
     });
 
     $('a#leave_poll_details').click(function(e){
