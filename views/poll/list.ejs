@@ -4,7 +4,8 @@
 <% if(polls.length){ %>
 	<ul id="poll_list" class="list-group">
 	<% _.each(polls, function(poll){ %>
-		<li data-id="<%= poll.id %>" class="list-group-item"><a href="/poll/show/<%=poll.id%>"><%= poll.title %></a> (<%= poll.createdAt %>)</li>
+        <% var d = new Date(poll.createdAt); %>
+		<li data-id="<%= poll.id %>" class="list-group-item"><a href="/poll/show/<%=poll.id%>"><%= poll.title %></a> (<%= d.toLocaleDateString() + ', ' + d.toLocaleTimeString() %>)</li>
 	<% }); %>
 	</ul>
 <% }else{ %>

@@ -13,5 +13,49 @@ module.exports.bootstrap = function(cb) {
 
   // It's very important to trigger this callback method when you are finished
   // with the bootstrap!  (otherwise your server will never lift, since it's waiting on the bootstrap)
-  cb();
+  var examplePoll = [
+    {
+        title: "Example: What do you want for lunch?",
+        description: "A default poll to show how this thing works.",
+        options: [
+            {
+                label: "Pizza",
+                votes: 0
+            },
+            {
+                label: "Sandwiches",
+                votes: 0
+            },
+            {
+                label: "Soup",
+                votes: 0
+            },
+            {
+                label: "Pasta",
+                votes: 0
+            },
+            {
+                label: "Leftovers",
+                votes: 0
+            },
+            {
+                label: "ICE CREAM",
+                votes: 0
+            }
+        ]
+    }
+  ];
+        
+  Poll.count().exec(function(err,count){
+    if(err){
+        Sails.log.error('Already have some data!');
+        return cb(err);
+    }
+    if(count > 0){
+        return cb();
+    }
+    else{
+        Poll.create(examplePoll).exec(cb);
+    }
+  });
 };
