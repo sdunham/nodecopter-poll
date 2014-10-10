@@ -33,6 +33,7 @@ $(document).ready(function(){
             pollChart.segments[option_pos].value = pollChart.segments[option_pos].value + 1;
             pollChart.update();
             pollChart.blnRegen = false;
+            pollChart.intPollId = pollId;
         }
         else{
             pollChart.segments[option_pos].value = pollChart.segments[option_pos].value + 1;

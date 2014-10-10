@@ -33,17 +33,17 @@ io.socket.on('connect', function socketConnected() {
             console.log(message);
 
             if(pollChart.intPollId == message.data.pollid){
-                //TODO: Handle this better
                 if(pollChart.blnRegen){
                     pollChart.destroy();
                     var ctx = document.getElementById("poll_chart_pie").getContext("2d");
                     pollChart = new Chart(ctx).Pie(pollDataPie);
-                    pollChart.segments[message.data.datapos].value = pollChart.segments[message.data.datapos].value + 1;
+                    pollChart.segments[message.data.datapos].value = message.data.votes;
                     pollChart.update();
                     pollChart.blnRegen = false;
+                    pollChart.intPollId = message.data.pollid;
                 }
                 else{
-                    pollChart.segments[message.data.datapos].value = pollChart.segments[message.data.datapos].value + 1;
+                    pollChart.segments[message.data.datapos].value = message.data.votes;
                     pollChart.update();
                 }
             }
