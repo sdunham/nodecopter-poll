@@ -1,4 +1,19 @@
 <h1>Node Poll</h1>
 <p>A simple real-time Sails/Node.js app for creating and voting in polls.</p>
 
-TODO: Display server IP address/port? Generate QR code for quick access?
+<%
+var testingIP = sails.os.networkInterfaces();
+var appIP = '';
+for (var dev in testingIP) {
+  testingIP[dev].forEach(function(details){
+    if (details.family=='IPv4' && details.address != '127.0.0.1') {
+      appIP = details.address;
+      return false;
+    }
+  });
+}
+%>
+
+<h2>Access the App:</h2>
+<h4><a href="http://<%=appIP%>:1337">http://<%=appIP%>:1337</a></h4>
+<img src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=http://<%=appIP%>:1337" />
