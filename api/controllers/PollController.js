@@ -52,6 +52,7 @@ module.exports = {
 		});
 	},
     show: function(req, res){
+    	//Load a single poll to display
         Poll.findOne(req.param('id')).populate('options').exec(function foundPoll(err, poll){
             if(err){
                 return err;

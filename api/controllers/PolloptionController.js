@@ -7,6 +7,7 @@
 
 module.exports = {
 	vote: function(req, res){
+		//Load the polloption being voted on and increase its votes property by 1
         Polloption.findOne(req.param('option_id')).exec(function foundPolloption(err, polloption){
             if(err){
                 return err;

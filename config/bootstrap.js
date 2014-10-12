@@ -14,9 +14,10 @@ module.exports.bootstrap = function(cb) {
   // It's very important to trigger this callback method when you are finished
   // with the bootstrap!  (otherwise your server will never lift, since it's waiting on the bootstrap)
 
+  //Load the node.js os module for use on the home view
   sails.os = require('os');
 
-
+  //Define the default Poll and options
   var examplePoll = [
     {
         title: "Example: What do you want for lunch?",
@@ -49,7 +50,8 @@ module.exports.bootstrap = function(cb) {
         ]
     }
   ];
-        
+
+  //Create the default Poll in none exist
   Poll.count().exec(function(err,count){
     if(err){
         Sails.log.error('Already have some data!');
