@@ -41,5 +41,23 @@ $(document).ready(function(){
             pollChart.update();
         }
         
+        //Disable the voting buttons for 10 seconds so people don't go totally cray-cray
+        disableVotingTemporarily();
     });
 });
+
+//Disable all poll option voting buttons and display an alert. Enable the button and remove the alert after 10 seconds.
+var disableVotingTemporarily = function(){
+    $('a.poll_option_vote').attr('disabled',true);
+    var strVotingDisabledAlert = '<div class="alert alert-success alert-dismissible" role="alert" id="voting_disabled_alert">\
+        <button type="button" class="close" data-dismiss="alert">\
+            <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>\
+        </button>\
+        <strong>Thanks for casting your vote!</strong> You\'ll be able to vote again in 10 seconds.\
+    </div>';
+    $('#poll_option_contain').prepend(strVotingDisabledAlert);
+    setTimeout(function(){
+        $('#voting_disabled_alert').remove();
+        $('a.poll_option_vote').attr('disabled',false);
+    }, 10000);
+}
