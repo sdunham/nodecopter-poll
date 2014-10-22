@@ -6,22 +6,22 @@ io.socket.on('connect', function socketConnected() {
     io.socket.on('poll', function messageReceived(message) {
         console.log('Poll Message:');
         console.log(message);
+
+          //Increment the poll count in the nav bar
+          var intCurrentPollCount = parseInt($('#poll_list_count').html());
+          $('#poll_list_count').html(intCurrentPollCount+1)
         
-        //Increment the poll count in the nav bar
-        var intCurrentPollCount = parseInt($('#poll_list_count').html());
-        $('#poll_list_count').html(intCurrentPollCount+1)
-        
-        //Add the new poll to the list if in that view
-        var objPollList = $('#poll_list');
-        var objPollListContain = $('#poll_list_contain');
-        var now = new Date();
-        if(objPollList.length){
-            objPollList.prepend('<li data-id="'+message.data.id+'" class="list-group-item"><a href="/poll/show/'+message.data.id+'">'+message.data.title+'</a> ('+now.toLocaleDateString() + ', ' + now.toLocaleTimeString()+')</li>');
-        }
-        else if(objPollListContain.length){
-            var list_item = '<li data-id="'+message.data.id+'"><a href="/poll/show/'+message.data.id+'">'+message.data.title+'</a> ('+now.toLocaleDateString() + ', ' + now.toLocaleTimeString()+')</li>';
-            $('#poll_list_contain').html('<ul id="poll_list" class="list-group">'+list_item+'</ul>');
-        }
+          //Add the new poll to the list if in that view
+          var objPollList = $('#poll_list');
+          var objPollListContain = $('#poll_list_contain');
+          var now = new Date();
+          if(objPollList.length){
+              objPollList.prepend('<li data-id="'+message.data.id+'" class="list-group-item"><a href="/poll/show/'+message.data.id+'">'+message.data.title+'</a> ('+now.toLocaleDateString() + ', ' + now.toLocaleTimeString()+')</li>');
+          }
+          else if(objPollListContain.length){
+              var list_item = '<li data-id="'+message.data.id+'"><a href="/poll/show/'+message.data.id+'">'+message.data.title+'</a> ('+now.toLocaleDateString() + ', ' + now.toLocaleTimeString()+')</li>';
+              $('#poll_list_contain').html('<ul id="poll_list" class="list-group">'+list_item+'</ul>');
+          }
     });
 
     //Subscribe to the existing Poll model instances
@@ -37,6 +37,11 @@ io.socket.on('connect', function socketConnected() {
         io.socket.on('polloption', function messageReceived(message) {
             console.log('Polloption Message:');
             console.log(message);
+
+            if(message.verb === 'messaged'){
+              console.log('update!!!!');
+              document.location.reload(true); //Being lazy and just reloading the page instead of resetting the chart
+            }
 
             //Update the poll chart, and regenerate it if needed
             if(pollChart.intPollId == message.data.pollid){

@@ -14,38 +14,102 @@ module.exports.bootstrap = function(cb) {
   // It's very important to trigger this callback method when you are finished
   // with the bootstrap!  (otherwise your server will never lift, since it's waiting on the bootstrap)
 
+  sails.arDrone = require('ar-drone');
+  sails.droneclient  = sails.arDrone.createClient({ip:'192.168.1.200'});
+
+
+  var droneActionInterval = setInterval(function(){selectDroneAction()}, 10000);
+  function selectDroneAction(){
+    Polloption.find().exec(function (err, polloptions){
+      var intCurLeaderId = 0;
+      var intCurLeaderVotes = 0;
+      var strDroneAction = '';
+      while(polloptions.length){
+        var objPolloption = polloptions.pop();
+        if(objPolloption.votes > intCurLeaderVotes){
+          intCurLeaderVotes = objPolloption.votes;
+          intCurLeaderId = objPolloption.id;
+          strDroneAction = objPolloption.action;
+        }
+        objPolloption.votes = 0;
+        objPolloption.save(function(err,s){
+          console.log('Polloption '+s.id+' votes reset');
+        });
+      }
+
+      if(intCurLeaderId > 0){
+        switch(strDroneAction){
+          case 'takeoff':
+            sails.droneclient.takeoff();
+            break;
+          case 'land':
+            sails.droneclient.land();
+            break;
+          case 'left':
+            sails.droneclient.after(500, function(){this.counterClockwise(0.5)}).after(3000, function(){this.stop();});
+            break;
+          case 'right':
+            sails.droneclient.after(500, function(){this.clockwise(0.5)}).after(3000, function(){this.stop();});
+            break;
+          case 'blink':
+            sails.droneclient.animateLeds('blinkRed', 5, 2);
+            break;
+          case 'flip':
+            sails.droneclient.animate('flipLeft', 1000);
+            break;
+        }
+        console.log('And the winner is: Polloption '+intCurLeaderId+'!');
+        Polloption.message(intCurLeaderId, {reset:true});
+      }
+    });
+  }
+
+
   //Load the node.js os module for use on the home view
   sails.os = require('os');
 
   //Define the default Poll and options
   var examplePoll = [
     {
-        title: "Example: What do you want for lunch?",
-        description: "A default poll to show how this thing works.",
+	id: 1,
+        title: "What do you want the drone to do next?!",
+        description: "Vote for the drone's next action. Every 30 seconds the votes will be reset and the appropriate action will be taken.",
         options: [
             {
-                label: "Pizza",
-                votes: 0
+		action: "takeoff",
+                label: "Take Off",
+                votes: 0,
+                datapos: 1
             },
             {
-                label: "Sandwiches",
-                votes: 0
+		action: "land",
+                label: "Land",
+                votes: 0,
+                datapos: 2
             },
             {
-                label: "Soup",
-                votes: 0
+		action: "left",
+                label: "Spin Left",
+                votes: 0,
+                datapos: 3
             },
             {
-                label: "Pasta",
-                votes: 0
+		action: "right",
+                label: "Spin Right",
+                votes: 0,
+                datapos: 4
             },
             {
-                label: "Leftovers",
-                votes: 0
+		action: "blink",
+                label: "Blink Lights",
+                votes: 0,
+                datapos: 5
             },
             {
-                label: "ICE CREAM",
-                votes: 0
+		action: "flip",
+                label: "DO A BARREL ROLL!",
+                votes: 0,
+                datapos: 6
             }
         ]
     }
