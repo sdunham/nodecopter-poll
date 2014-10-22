@@ -1,12 +1,13 @@
 # Nodecopter Poll
 
-Crowdsource control of your Parrot AR Drone 2.0 with this special version of the [Node Poll](https://github.com/sdunham/node-poll) app.
+Crowdsource control of your [Parrot AR Drone 2.0](http://ardrone2.parrot.com/) with this special version of the [Node Poll](https://github.com/sdunham/node-poll) app.
 
 ## Todos
 
 1. Make sure the barrel roll action only happens at a safe altitude.
 2. Land the drone on process exit and crash?
-3. Add a "DESTROY" button???
+3. Investigate possible automation of network connection process??
+4. Add a "DESTROY" button???
 
 ## Installing the App
 
@@ -17,12 +18,12 @@ Crowdsource control of your Parrot AR Drone 2.0 with this special version of the
 
 ## Running the App
 
-Getting things set up to connect this app to your drone is a bit mor complicated than the original Node Poll app...
+Getting things set up to connect this app to your drone is a bit more complicated than the original Node Poll app...
 
 1. Connect your computer to your drone
 2. `cd nodecopter-poll/ardrone-wpa2`
-3. Install wpa2 support to your AR drone by running: `script/install`
-4. Connect to a network with: `script/connect "<wireless_network_name>" -p "<wireless_network_password>" -a 192.168.1.200`
+3. Install wpa2 support to your AR drone by running: `script/install` (only required once)
+4. Connect your drone to a WPA-secured network by running: `script/connect "<wireless_network_name>" -p "<wireless_network_password>" -a 192.168.1.200`
 5. Connect your computer to the same network your drone is now connected to
 6. Terminal command: `telnet 192.168.1.200`
 7. Terminal command: `route add default gw <wireless_router_ip> ath0`
