@@ -83,7 +83,7 @@ module.exports.bootstrap = function(cb) {
     {
 	id: 1,
         title: "What do you want the drone to do next?!",
-        description: "Vote for the drone's next action. Every 30 seconds the votes will be reset and the appropriate action will be taken.",
+        description: "Vote for the drone's next action. Every 10 seconds the votes will be reset and the appropriate action will be taken.",
         options: [
             {
 		action: "takeoff",
