@@ -64,6 +64,16 @@ module.exports.bootstrap = function(cb) {
     });
   }
 
+  process.on('exit', function(code) {
+    sails.droneclient.land();
+    console.log('About to exit with code:', code);
+  });
+
+  process.on('uncaughtException', function(err) {
+    sails.droneclient.land();
+    console.log('Caught exception: ' + err);
+  });
+
 
   //Load the node.js os module for use on the home view
   sails.os = require('os');
