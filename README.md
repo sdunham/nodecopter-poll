@@ -5,7 +5,7 @@ Crowdsource control of your [Parrot AR Drone 2.0](http://ardrone2.parrot.com/) w
 ## Todos
 
 1. Make sure the barrel roll action only happens at a safe altitude.
-2. Land the drone on process exit and crash?
+2. ~~Land the drone on process exit and crash?~~
 3. Investigate possible automation of network connection process??
 4. Add a "DESTROY" button???
 
@@ -23,7 +23,7 @@ Getting things set up to connect this app to your drone is a bit more complicate
 If connecting the drone to an unprotected wireless network:
 
 1. Connect your computer to your drone
-2. telnet 192.168.1.1
+2. `telnet 192.168.1.1`
 3. Terminal command: `killall udhcpd; iwconfig ath0 mode managed essid <wireless_network_name>; ifconfig ath0 192.168.1.200 netmask 255.255.255.0 up;`
 4. Connect your computer to the same network your drone is now connected to
 5. Run `sails lift` from the terminal in the app root directory
